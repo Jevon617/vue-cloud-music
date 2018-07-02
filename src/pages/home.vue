@@ -85,7 +85,7 @@ export default {
 	position: absolute;
 	bottom: px2rem(300);
 	width: 100%;
-	text-align: 100%;
+	text-align: center;
 }
 
 

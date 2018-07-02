@@ -1,7 +1,7 @@
 <template>
     <div class="main">
     	<header>
-    		<div class="left"></div>
+			<div class="left" @click="showDrawer"></div>
     		<div class="middle">
     			<router-link tag="div" class="manage" to="/main/manage"
     			             :class="{ 'manage_on' : $route.path == '/main/manage'}">
@@ -15,14 +15,29 @@
     			             :class="{ 'radio_on' : $route.path == '/main/radio'}">
     			</router-link>
     		</div>
-    		<div class="right"></div>
-    	</header>
-        <router-view/>
+			<div class="right"></div>
+		</header>
+		<div class="content">
+    		<router-view/>
+		</div>
+		
     </div>
 </template>
 
 <script>
+import { Bus } from "../bus.js";
+
 export default {
+	data(){
+		return{
+
+		}
+	},
+	methods:{
+		showDrawer(){
+			Bus.$emit('toggleMenu');
+		}
+	}
     
 }
 </script>
@@ -33,13 +48,15 @@ export default {
 @import "../scss/px2rem.scss";
 .main{
 	height: 100%;
-	min-height: 100vh;
 }
-
 header{
 	height: px2rem(120);
 	@include flex(space-between);
 	background-color: $bg;
+	position: fixed;
+	top: 0;
+    left: 0;
+    z-index: 6;
 	.left{
 		width: px2rem(50);
 		height: px2rem(50);
@@ -91,5 +108,11 @@ header{
 		}
 	}
 }
+.content{
+	overflow: scroll;
+	height: 100%;
+}
+
+
 
 </style>

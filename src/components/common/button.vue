@@ -33,6 +33,7 @@ export default {
 	line-height: px2rem(90);
 	border-radius:px2rem(80);
 	border: px2rem(2) solid white;
+	text-align: center;
 }
 
 </style>

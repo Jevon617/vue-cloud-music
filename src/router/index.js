@@ -7,6 +7,8 @@ import manage from '../pages/manage.vue'
 import music  from '../pages/music.vue'
 import radio  from '../pages/radio.vue'
 import search from '../pages/search.vue'
+import rSongs from '../pages/recommendSongs.vue'
+
 
 
 Vue.use(Router)
@@ -47,24 +49,14 @@ export default new Router({
       ]
     },
     {
-      path: '/main/manage',
-      name: 'manage',
-      component: manage
-    },
-    {
-      path: '/main/music',
-      name: 'music',
-      component: music
-    },
-    {
-      path: '/main/radio',
-      name: 'radio',
-      component: radio
-    },
-    {
       path: '/search',
       name: 'search',
       component: search
+    },
+    {
+      path : '/rsongs',
+      name : 'rsongs',
+      component: rSongs
     }
   ]
 })

@@ -1,0 +1,174 @@
+<template>
+	<div class="list_box">
+		<div class="bg" @click="hideList" v-show="show && $store.state.songs.length"></div>
+		<transition name="list" >
+		    <div class="music_list"  v-show="show && $store.state.songs.length">
+		    	<div class="title">
+		    		<div class="type" @click="changeType">
+		    			{{ type[count%3] }} ({{list.length}})
+		    		</div>
+		    		<div class="collection">
+		    			收藏全部
+		    		</div>
+		    		<div class="clearall" @click="clearAll">
+		    			清空
+		    		</div>
+		    	</div>
+		    	<div class="list">
+		    		<div class="item" v-for="item,index in list" :class="{ on : item.play }">
+		    			<div class="info">
+		    				<span class="name">{{item.name}}</span> 
+		    				<span class="author" :class="{ on : item.play }">
+		    					-　{{ item.artists[0].name }}
+		    				</span>
+		    			</div>
+		    			<div class="close" @click="del(index)"></div>
+		    		</div>
+		    	</div>
+		    </div>
+	    </transition>
+	</div>
+	
+	
+</template>
+
+<script>
+export default {
+	data(){
+		return{
+			count : 0,
+			type : ["随机播放", "单曲循环", "列表循环"],
+			show : false
+		}
+	},
+	props : {
+		list:{
+			type : Array,
+			default : ()=>{
+				return [];
+			}
+		}
+	},
+	methods:{
+		changeType(){
+			this.count ++;
+		},
+		showList(){
+			this.show = true;
+		},
+		hideList(){
+			this.show = false;
+		},
+		clearAll(){
+			this.$store.state.songs = [];
+		},
+		del(index){
+			let song = this.$store.state.songs[index];
+			if(song.play){
+				let next = this.$store.state.songs[index+1] || this.$store.state.songs[0];
+				if(next) next.play = true;
+			}
+			this.$store.state.songs.splice(index, 1);
+		}
+	}
+    
+}
+</script>
+
+<style scoped  lang="scss">
+@import "../scss/mixin.scss";
+@import "../scss/px2rem.scss";
+.bg{
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0,0,0,.5);
+	position: fixed;
+	bottom: 0;
+	z-index: 8;
+}
+
+.list-enter-active, .list-leave-active{
+	transition: all .2s ease-in;
+}
+.list-enter, .list-leave-active{
+	transform:translateY(100%);
+}
+
+.on{
+	color: $bg !important;
+}
+
+.music_list{
+	height: px2rem(767);
+	width: 100%;
+	background-color: white;
+	border-top-left-radius: px2rem(20);
+	border-top-right-radius: px2rem(20);
+	position: fixed;
+	bottom: 0;
+	z-index: 8;
+	.title{
+		width: 100%;
+		border-top-left-radius: px2rem(20);
+		border-top-right-radius: px2rem(20);
+		height: px2rem(120);
+		line-height: px2rem(120);
+		@include flex(space-between);
+		font-size: px2rem(28);
+		border-bottom: 1px solid #ccc;
+		.type{
+			@include prix(flex, 1);
+			@include padding(px2rem(20));
+		}
+		.collection{
+			width: px2rem(150);
+		}
+		.clearall{
+			width: px2rem(80);
+			color: gray;
+		}
+	}
+
+	.list{
+		height: px2rem(640);
+		overflow: scroll;
+		@include padding(0 0 0 px2rem(20));
+		.item{
+			width: 100%;
+			height: px2rem(100);
+			@include flex(space-between);
+			border-bottom: 1px solid #ccc;
+
+		}
+		.info{
+			@include prix(flex, 1);
+		}
+		.name{
+			font-size: px2rem(28);
+			margin-right: px2rem(10);
+			overflow: hidden;
+			height: px2rem(100);
+			line-height: px2rem(100);
+			display: inline-block;
+			max-width: px2rem(500);
+		}
+		.author{
+			font-size: px2rem(20);
+			color: gray;
+			overflow: hidden;
+			height: px2rem(100);
+			line-height: px2rem(100);
+			display: inline-block;
+		}
+		.close{
+			width: px2rem(40);
+			height: px2rem(40);
+			@include bg('../images/close.svg');
+			margin-right: px2rem(10);
+		}
+		
+	}
+	
+}
+
+</style>

@@ -6,10 +6,10 @@
     	</heador>
     	<div class="content">
     		<div class="login_input">
-    			<input type="text" placeholder="请输入手机号">
+    			<input type="text" placeholder="请输入手机号" v-model="phone">
     		</div>
     		<div class="password_input">
-    			<input type="password" placeholder="请输入密码">
+    			<input type="password" placeholder="请输入密码" v-model="password">
     		</div>
 
     		<div class="submit" @click="login">
@@ -21,19 +21,35 @@
 
 <script>
 
-import heador from "../components/common/header.vue";
-import btn    from "../components/common/button.vue";
+import heador    from "../components/common/header.vue";
+import btn       from "../components/common/button.vue";
+import { login } from "../service/getData.js";
 
 
 export default {
 	data(){
 		return{
-
+			phone : '18575598470',
+			password : 'wj1787176370.'
 		}
 	},
 	methods:{
-		login(){
-			this.$router.push('/main');
+		async login(){
+			try{
+				let res = await login(this.phone, this.password);
+				console.log(res);
+
+				if(res.data.code == 200){
+					this.$store.state.userInfo = res.data.account;
+					localStorage.setItem('userInfo', JSON.stringify(res.data.account));
+					this.$toast('登录成功');
+					this.$router.push('/main');
+				}else{
+					this.$toast("登录失败");
+				}
+			}catch(e){
+				this.$toast('请检查一下网络哦!');
+			}
 		}
 	},
 	components:{
@@ -52,6 +68,7 @@ export default {
 .login{
 	height: 100%;
 	min-height: 100vh;
+	@include padding( px2rem(120) 0 0 );
 }
 .content{
 	@include padding(px2rem(100) px2rem(50));

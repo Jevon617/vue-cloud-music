@@ -28,7 +28,11 @@ export default {
 	color: white;
 	@include flex(space-between);
 	background-color: $bg;
-	@include padding(0 px2rem(40))
+	@include padding(0 px2rem(40));
+	position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 6;
 }
 .left{
 	width: 38%;

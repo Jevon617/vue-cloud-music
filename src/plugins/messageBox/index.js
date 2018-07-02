@@ -26,9 +26,9 @@ export default{
 
 			if(timer){
 				clearTimeout(timer);
-			}else{
-				timer = setTimeout(()=>{toast.hideToast()},2500)
 			}
+			timer = setTimeout(()=>{toast.hideToast()},1000)
+			
 		}
 
 		// 确认框
