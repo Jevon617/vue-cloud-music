@@ -68,7 +68,7 @@ export default {
 			let i = Number(index)-1;
 			songs[i].play = true;
 
-			this.$store.commit('addSongs', {song:songs, recommend:true});
+			this.$store.commit('addSongs', {song:songs, recommend:true, index : i});
 		}
 	},
 	components:{	

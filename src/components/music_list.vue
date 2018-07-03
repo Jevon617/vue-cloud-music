@@ -15,10 +15,12 @@
 		    		</div>
 		    	</div>
 		    	<div class="list">
-		    		<div class="item" v-for="item,index in list" :class="{ on : item.play }">
+		    		<div class="item" v-for="item,index in list"
+		    		    :class="{ on : index == $store.state.currentIndex }">
 		    			<div class="info">
 		    				<span class="name">{{item.name}}</span> 
-		    				<span class="author" :class="{ on : item.play }">
+		    				<span class="author"
+		    				     :class="{ on : index == $store.state.currentIndex }">
 		    					-　{{ item.artists[0].name }}
 		    				</span>
 		    			</div>
