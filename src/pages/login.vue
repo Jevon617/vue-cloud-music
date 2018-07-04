@@ -69,6 +69,9 @@ export default {
 	height: 100%;
 	min-height: 100vh;
 	@include padding( px2rem(120) 0 0 );
+	position: relative;
+	z-index: 10;
+	background: white;
 }
 .content{
 	@include padding(px2rem(100) px2rem(50));

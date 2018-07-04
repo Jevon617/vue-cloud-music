@@ -24,14 +24,15 @@ export default {
 
 <style scoped  lang="scss">
 @import "../../scss/mixin.scss";
+@import "../../scss/px2rem.scss";
 .loading{
-	width: 250px;
-	height: 250px;
+	width: px2rem(250);
+	height: px2rem(250);
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
-	border-radius: 30px;
+	border-radius: px2rem(30);
 	background-color: rgba(0,0,0,.6);
 	@include flex(center, center);
 	z-index: 99;

@@ -27,6 +27,9 @@ export default {
 
 <style scoped  lang="scss">
 
+@import "../../scss/px2rem.scss";
+
+
 .fade-enter-active, .fade-leave-active{
     transition: all .5s linear;
 }
@@ -38,23 +41,22 @@ export default {
 }
 
 .toast{
-	width: 250px;
-	height: 100px;
-	line-height: 100px;
+	width: px2rem(250);
+	height:  px2rem(100);
+	line-height: px2rem(100);
 	text-align: center;
 	text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     color: white;
-    border-radius: 10px;
+    border-radius: px2rem(10);
     position: absolute;
-    font-size: 25px;
+    font-size: px2rem(25);
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     z-index: 99;
     background-color: rgba(0,0,0,.6);
-
 }
 
 </style>

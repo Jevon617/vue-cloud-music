@@ -45,6 +45,8 @@ export default {
 
 <style scoped  lang="scss">
 @import "../../scss/mixin.scss";
+@import "../../scss/px2rem.scss";
+
 .confirm{
 	width: 100%;
 	height: 100%;
@@ -55,29 +57,29 @@ export default {
 	z-index: 1000;
 	@include flex(center, center);
 	.box{
-		border-radius: 10px;
+		border-radius: px2rem(10);
 		width: 80%;
-		height: 350px;
+		height: px2rem(350);
 		text-align: center;
 		background-color: white;
-		font-size: 35px;
+		font-size: px2rem(35);
 		.title{
-			line-height: 100px;
+			line-height: px2rem(100);
 			font-weight: 600;
 			width: 100%;
 		}
 		.content{
 			width: 100%;
-			line-height: 150px;
+			line-height: px2rem(150);
 			color: #666;
 		}
 		.bottom{
-			line-height: 100px;
+			line-height: px2rem(100);
 			border-top: 1px solid #ccc;
 			@include flex;
 			div{
 				width: 50%;
-				line-height: 100px;
+				line-height: px2rem(100);
 				color: black;
 			}
 			.ensure{

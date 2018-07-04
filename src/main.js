@@ -21,6 +21,7 @@ Vue.use(VueLazyLoad,{
 Vue.use(DrawerLayout)
 Vue.use(msgBox)
 Vue.use(VueAwesomeSwiper)
+Vue.prototype.px2rem = window.hotcss.px2rem;
 
 
 Vue.config.productionTip = false

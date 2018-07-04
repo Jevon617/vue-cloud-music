@@ -66,8 +66,8 @@
 			//如果你在JS中大量用到此方法，建议直接定义 hotcss.designWidth 来定义设计图尺寸;
 			//否则可以在第二个参数告诉我你的设计图是多大。
 			designWidth = parseInt(hotcss.designWidth , 10);
+            
 		}
-
 		return parseInt(px,10)*320/designWidth/20;
 	}
 

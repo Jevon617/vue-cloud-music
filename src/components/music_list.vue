@@ -17,7 +17,7 @@
 		    	<div class="list">
 		    		<div class="item" v-for="item,index in list"
 		    		    :class="{ on : index == $store.state.currentIndex }">
-		    			<div class="info">
+		    			<div class="info" @click="change(index)">
 		    				<span class="name">{{item.name}}</span> 
 		    				<span class="author"
 		    				     :class="{ on : index == $store.state.currentIndex }">
@@ -54,6 +54,8 @@ export default {
 	methods:{
 		changeType(){
 			this.count ++;
+			this.$store.state.type = this.type[this.count%3];
+			localStorage.setItem('list_type', this.$store.state.type )
 		},
 		showList(){
 			this.show = true;
@@ -65,12 +67,20 @@ export default {
 			this.$store.state.songs = [];
 		},
 		del(index){
-			let song = this.$store.state.songs[index];
-			if(song.play){
-				let next = this.$store.state.songs[index+1] || this.$store.state.songs[0];
-				if(next) next.play = true;
+			console.log(index);
+			if(index < this.$store.state.currentIndex){
+				this.$store.state.currentIndex--;
+			}
+			if(index == this.$store.state.currentIndex){
+				let next = this.$store.state.songs[index+1] && (index+1) || 0;
+				this.$store.state.currentIndex =  next;
 			}
 			this.$store.state.songs.splice(index, 1);
+		},
+		change(index){
+			let currentIndex = this.$store.state.currentIndex
+			if(index == currentIndex) return;
+			this.$store.state.currentIndex = index;
 		}
 	}
     

@@ -1,12 +1,13 @@
 <template>
     <div class="player" v-if="$store.state.songs.length">
+
 		<audio ref="audio" preload  @timeupdate="setTime"
 		 	   @ended="end"
 		      :src="'http://music.163.com/song/media/outer/url?id='
 		      + $play.id +'.mp3'">
 		</audio>
 		
-    	<img :src="$play.album.picUrl">
+    	<img :src="$play.album.picUrl" @click="$router.push('/mplay')">
     	<div class="middle">
     		<div class="title">{{ $play.name }}</div>
     		<div class="lyric">作曲　:　文健</div>
@@ -27,6 +28,7 @@
 import { mapGetters } from 'vuex';
 import { Bus } from '../bus.js';
 import cprogress from './progress-circle.vue';
+import { clone } from '../service/utlis.js';
 
 export default {
 	data(){
@@ -39,7 +41,7 @@ export default {
 	props:{
 		imgurl : {
 			type : String,
-			default : '../../static/error.png'
+			default : 'static/error.png'
 		},
 		title : {
 			type : String,
@@ -78,27 +80,36 @@ export default {
 			this.state = "paused";
 		},
 		setTime(){
-			this.currentTime = this.$refs.audio.currentTime;
+			this.currentTime = this.$refs.audio && this.$refs.audio.currentTime;
 			localStorage.setItem('current'+this.id, this.currentTime);
 		},
 		end(){
 			this.state = 'paused';
 			localStorage.removeItem('current'+this.id);
 			let currentIndex = this.$store.state.currentIndex;
-			let lenght = this.$store.state.songs.length;
+			let length = this.$store.state.songs.length;
 
 			if(this.$store.state.type == '列表循环'){
-
-				if(length - 1 == currentIndex){
+				console.log('列表循环');
+				if(length-1 == currentIndex){
 					this.$store.state.currentIndex = 0;
 				}else{
 					this.$store.state.currentIndex ++;
 				}
 			}else if(this.$store.state.type == '随机播放'){
-				let random = Math.random(Math.floor(-1,length));
+				console.log('随机播放');
+				let random = Math.floor(Math.random()*length);
+				console.log(currentIndex);
+				console.log(random);
+				if(random == currentIndex){
+					random = random+1;
+					if(random >= length-1) random = 0;
+				}
 				this.$store.state.currentIndex = random;
 			}else{
-				this.$store.state.currentIndex = currentIndex;
+				console.log('单曲循环');
+				let song = clone(this.$store.state.songs[currentIndex]);
+				this.$store.state.songs.splice(currentIndex, 1, song);
 			}
 		}
 	}, 
@@ -116,7 +127,9 @@ export default {
 		cprogress
 	},
 	mounted(){
-		this.$refs.audio.currentTime = Number(localStorage.getItem('current' + this.id)) || 0;
+		if(this.$store.state.songs.length){
+			this.$refs.audio.currentTime = Number(localStorage.getItem('current' + this.id)) || 0;
+		}
 	}
 }	
 </script>

@@ -61,13 +61,7 @@ export default {
 		addSongs(index){
 
 			let songs = clone(this.songs);
-			songs.forEach(s=>{
-				this.$set(s, 'play', false );
-			})
-
 			let i = Number(index)-1;
-			songs[i].play = true;
-
 			this.$store.commit('addSongs', {song:songs, recommend:true, index : i});
 		}
 	},

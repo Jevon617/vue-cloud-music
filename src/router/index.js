@@ -8,6 +8,8 @@ import music  from '../pages/music.vue'
 import radio  from '../pages/radio.vue'
 import search from '../pages/search.vue'
 import rSongs from '../pages/recommendSongs.vue'
+import mplay  from '../pages/music_play.vue'
+
 
 
 
@@ -57,6 +59,11 @@ export default new Router({
       path : '/rsongs',
       name : 'rsongs',
       component: rSongs
+    },
+    {
+      path : '/mplay',
+      name : 'mplay',
+      component: mplay
     }
   ]
 })

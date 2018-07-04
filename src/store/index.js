@@ -9,7 +9,7 @@ const state = {
 	userInfo 	 : JSON.parse(localStorage.getItem('userInfo'))|| {},
 	profile  	 : JSON.parse(localStorage.getItem('profile')) || {},
 	songs    	 : JSON.parse(localStorage.getItem('songs'))   || [],
-	type         : localStorage.getItem('list_type') || '列表循环',
+	type         : localStorage.getItem('list_type') || '随机播放',
 	currentIndex : Number(JSON.parse(localStorage.getItem('currentIndex'))) || 0
 }
 

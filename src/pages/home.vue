@@ -40,6 +40,7 @@ export default {
 	background: url(../images/bg.jpg) no-repeat;
 	background-size: 100% 100%;
 	position: relative;
+	z-index: 10;
 }
 .content{
 	width: 100%;

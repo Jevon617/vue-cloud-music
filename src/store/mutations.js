@@ -38,7 +38,6 @@ export default{
 			console.log('不存在但下一曲');
 			
 			if(!state.songs.length){
-				payload.song.play = true;
 				state.songs.push(payload.song);
 				state.currentIndex = 0;
 			}else{
