@@ -31,3 +31,25 @@ export const clone = (obj)=>{
     throw new Error("Unable to copy obj! Its type isn't supported.");
 
 }
+
+
+export const s2m = (s)=>{
+
+    function addPrix(num){
+        return (Array(2).join(0) + num).slice(-2);
+    }
+
+    let sencond = addPrix(Math.floor(s)%60);
+    let min     = addPrix(Math.floor(s/60));
+    return min + ':' + sencond;
+}
+
+export const m2s = (m)=>{
+    let min    = Number(m.split(':')[0]);
+    let second = Number(m.split(':')[1].split('.')[0]);
+    let ms     = Number(m.split(':')[1].split('.')[1]);
+
+    let result = min*60 + second + ms/1000;
+
+    return result;
+}

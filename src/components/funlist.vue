@@ -115,7 +115,7 @@ export default {
 	background-color: rgba(0,0,0,.5);
 	position: fixed;
 	bottom: 0;
-	z-index: 8;
+	z-index: 15;
 }
 
 .flist-enter-active, .flist-leave-active{
@@ -137,7 +137,7 @@ export default {
 	border-top-right-radius: px2rem(20);
 	position: fixed;
 	bottom: 0;
-	z-index: 8;
+	z-index:15;
 	font-size: px2rem(28);
 	.title{
 		width: 100%;

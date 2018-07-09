@@ -5,7 +5,7 @@
 		    <div class="music_list"  v-show="show && $store.state.songs.length">
 		    	<div class="title">
 		    		<div class="type" @click="changeType">
-		    			{{ type[count%3] }} ({{list.length}})
+		    			{{ $store.state.type }} ({{list.length}})
 		    		</div>
 		    		<div class="collection">
 		    			收藏全部
@@ -67,13 +67,15 @@ export default {
 			this.$store.state.songs = [];
 		},
 		del(index){
-			console.log(index);
-			if(index < this.$store.state.currentIndex){
-				this.$store.state.currentIndex--;
-			}
+			// 如果为当前播放歌曲,跳到下一首
 			if(index == this.$store.state.currentIndex){
 				let next = this.$store.state.songs[index+1] && (index+1) || 0;
 				this.$store.state.currentIndex =  next;
+			}
+			// 恢复当前播放的index
+			if(index < this.$store.state.currentIndex){
+				this.$store.state.currentIndex--;
+				console.log(this.$store.state.currentIndex);
 			}
 			this.$store.state.songs.splice(index, 1);
 		},
@@ -82,6 +84,11 @@ export default {
 			if(index == currentIndex) return;
 			this.$store.state.currentIndex = index;
 		}
+	},
+	mounted(){
+		this.count = this.type.findIndex(value=>{
+			return value == this.$store.state.type;
+		})
 	}
     
 }
@@ -96,7 +103,7 @@ export default {
 	background-color: rgba(0,0,0,.5);
 	position: fixed;
 	bottom: 0;
-	z-index: 8;
+	z-index: 15;
 }
 
 .list-enter-active, .list-leave-active{
@@ -118,7 +125,7 @@ export default {
 	border-top-right-radius: px2rem(20);
 	position: fixed;
 	bottom: 0;
-	z-index: 8;
+	z-index: 15;
 	.title{
 		width: 100%;
 		border-top-left-radius: px2rem(20);

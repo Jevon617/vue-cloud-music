@@ -58,8 +58,7 @@ export default {
         padding(){
             let length = this.$store.state.songs.length;
             let paths = [ '/', '/login', '/mplay'];
-            console.log(paths.includes(this.$route.path));
-            if(length && paths.includes(this.$route.path)){
+            if(!length || paths.includes(this.$route.path)){
                 return true;
             }else{
                 return false;

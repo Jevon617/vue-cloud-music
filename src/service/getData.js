@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const $http = axios.create({
   baseURL: process.env.API_ROOT,   // 读取配置文件中的请求地址, 区分开发和生产环境
@@ -25,4 +25,7 @@ export  const getMvs = ()=>$http('/personalized/mv');
 
 // 每日推荐歌单
 export const getDaySongs = ()=>$http('/recommend/songs');
+
+// 获取歌词
+export const getLyric = (id)=>$http('/lyric?id='+id);
 

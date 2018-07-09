@@ -13,9 +13,9 @@
     		<div class="lyric">作曲　:　文健</div>
     	</div>
 
-    	<div class="play1" @click="play" v-show="state == 'paused'"></div>
+    	<div class="play1" @click="play" v-show="$store.state.states == 'paused'"></div>
     	
-    	<div class="play2" @click="pause" v-show="state == 'playing'">
+    	<div class="play2" @click="pause" v-show="$store.state.states == 'playing'">
     		<cprogress :radius="radius" :percent="this.$precent">
 				<div class="icon"></div>
 			</cprogress>
@@ -29,13 +29,15 @@ import { mapGetters } from 'vuex';
 import { Bus } from '../bus.js';
 import cprogress from './progress-circle.vue';
 import { clone } from '../service/utlis.js';
+import { getLyric } from '../service/getData.js';
+
 
 export default {
 	data(){
 		return{
 			state : 'paused',
 			radius : 60,
-			currentTime :  Number(localStorage.getItem('current' + this.id)) || 0
+			isChange : false
 		}
 	},
 	props:{
@@ -59,11 +61,12 @@ export default {
 	},
 	computed:{
 		...mapGetters([
-			'$play'
+			'$play',
+			'$currentLength'
 		]),
 		$precent(){
 			let duration = this.$play.duration/1000;
-			return Math.min(1, this.currentTime/duration);
+			return Math.min(1, this.$store.state.currentTime/duration);
 		}
 
 	},
@@ -73,34 +76,39 @@ export default {
 		},
 		play(){
 			this.$refs.audio && this.$refs.audio.paused && this.$refs.audio.play();
-			this.state = "playing";
+			this.$store.state.states = "playing";
+			Bus.$emit('playing');
 		},
 		pause(){
-			this.$refs.audio && this.$refs.audio.pause();
-			this.state = "paused";
+			this.$refs.audio && this.$refs.audio.played && this.$refs.audio.pause();
+			this.$store.state.states = "paused";
 		},
 		setTime(){
-			this.currentTime = this.$refs.audio && this.$refs.audio.currentTime;
-			localStorage.setItem('current'+this.id, this.currentTime);
+			this.$store.state.currentTime = this.$refs.audio && this.$refs.audio.currentTime;
+			localStorage.setItem('current'+this.id, this.$store.state.currentTime);
 		},
 		end(){
-			this.state = 'paused';
+			this.$store.state.states = 'paused';
 			localStorage.removeItem('current'+this.id);
+			this.switch(1);
+		},
+		switch(num){
 			let currentIndex = this.$store.state.currentIndex;
 			let length = this.$store.state.songs.length;
-
 			if(this.$store.state.type == '列表循环'){
 				console.log('列表循环');
-				if(length-1 == currentIndex){
-					this.$store.state.currentIndex = 0;
+				if(num>0){
+					if(length-1 == currentIndex){
+						this.$store.state.currentIndex = 0;
+					}else{
+						this.$store.state.currentIndex ++;
+					}
 				}else{
-					this.$store.state.currentIndex ++;
+					this.$store.state.currentIndex --;
 				}
 			}else if(this.$store.state.type == '随机播放'){
 				console.log('随机播放');
 				let random = Math.floor(Math.random()*length);
-				console.log(currentIndex);
-				console.log(random);
 				if(random == currentIndex){
 					random = random+1;
 					if(random >= length-1) random = 0;
@@ -111,25 +119,70 @@ export default {
 				let song = clone(this.$store.state.songs[currentIndex]);
 				this.$store.state.songs.splice(currentIndex, 1, song);
 			}
-		}
+		},
+		async getLyric(){
+
+            this.$store.state.lyric = [];
+            let res =  await getLyric(this.$play.id);
+
+            let lyric = res.data.lrc.lyric;
+            let arr = lyric.split('[');
+            arr.splice(0,1);
+
+            arr.forEach(a=>{
+                this.$store.state.lyric.push(a.split(']'));
+            })
+            console.log(this.$store.state.lyric);
+        }
 	}, 
 	watch: {
 		// 监听播放歌曲变化.
 		$play : function(){
+
 			console.log('下一曲');
+
 			this.$nextTick(()=>{
-				this.play();
-			})
+				if(this.isChange){
+					this.play();
+				}else{
+					this.$refs.audio.currentTime = 0;
+					this.play();
+				}
+				this.getLyric();
+				this.isChange = false;
+			});
 			localStorage.setItem('songs', JSON.stringify(this.$store.state.songs));
+		},
+		$currentLength : function(){
+			this.isChange = true;
 		}
+
 	},
 	components:{
 		cprogress
 	},
 	mounted(){
 		if(this.$store.state.songs.length){
-			this.$refs.audio.currentTime = Number(localStorage.getItem('current' + this.id)) || 0;
-		}
+			this.$refs.audio.currentTime = Number(localStorage.getItem('current'+this.id)) || 0;
+		};
+		Bus.$on('play_music',()=>{
+			this.$refs.audio && this.$refs.audio.paused && this.$refs.audio.play();
+		});
+		Bus.$on('pause_music',()=>{
+			this.$refs.audio && this.$refs.audio.played && this.$refs.audio.pause();
+		});
+		Bus.$on('play_pre',()=>{
+			this.switch(-1);
+		});
+		Bus.$on('play_next', ()=>{
+			this.switch(1);
+		});
+		Bus.$on('setProgress',(time)=>{
+			this.$refs.audio.currentTime = time;
+		})
+	},
+	created(){
+		this.getLyric();
 	}
 }	
 </script>
