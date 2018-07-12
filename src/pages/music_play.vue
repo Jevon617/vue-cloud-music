@@ -42,7 +42,7 @@
                 <div class="btns">
                     <div class="love"></div>
                     <div class="download"></div>
-                    <div class="comment"></div>
+                    <div class="comment" @click="goComment"></div>
                     <div class="more" @click="showFunList"></div>
                 </div>
 
@@ -70,6 +70,7 @@
 
                 <div class="middle" @click="play"
                      v-show="$store.state.states == 'paused'"></div>
+
                 <div class=" middle middle2" @click="pause"
                      v-show="$store.state.states == 'playing'"></div>
 
@@ -109,7 +110,7 @@ export default {
         }
     },
     created(){
-
+        console.log(this.$play);
         this.$store.state.lyric.length && this.initMap(); 
         this.count = this.type.findIndex((value)=>{
             return value == this.$store.state.type;
@@ -216,6 +217,19 @@ export default {
                 }
             }
         },
+        // 评论
+        goComment(){
+            this.$router.push({
+                path : '/comment',
+                query:{
+                    id       : this.$play.id,
+                    url      : this.$play.album.picUrl,
+                    nickname : this.$play.artists[0].name,
+                    tip      : this.$play.name,
+                    type     : 'music'
+                }
+            })
+        }
     },
 
     computed:{

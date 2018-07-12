@@ -114,7 +114,8 @@ export default {
 					id       : this.playlist.id,
 					url      : this.playlist.coverImgUrl,
 					nickname : this.playlist.creator.nickname,
-					tip      : this.playlist.name
+					tip      : this.playlist.name,
+					type     : 'playlist'
 				}
 			})
 		}

@@ -42,7 +42,7 @@ export const getFineSheet = (limit)=>$http('/top/playlist/highquality?limit='+li
 export const getSheetDetail = (id)=>$http('/playlist/detail?id='+id);
 
 // 获取歌单评论
-export const getSheetComment = (id)=>$http('/comment/playlist?id='+id);
+export const getComment = (type,id,limit)=>$http(`/comment/${type}?id=${id}&limit=${limit}`);
 
-
-
+// 给评论点赞或者取消
+export const praise = (id,cid,t,type)=>$http(`/comment/like?id=${id}&cid=${cid}&t=${t}&type=${type}`)

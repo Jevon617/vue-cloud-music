@@ -33,11 +33,8 @@ export const clone = (obj)=>{
 }
 
 
-export const s2m = (s)=>{
 
-    function addPrix(num){
-        return (Array(2).join(0) + num).slice(-2);
-    }
+export const s2m = (s)=>{
 
     let sencond = addPrix(Math.floor(s)%60);
     let min     = addPrix(Math.floor(s/60));
@@ -53,3 +50,9 @@ export const m2s = (m)=>{
 
     return result;
 }
+
+
+export const addPrix = function(num){
+    return (Array(2).join(0) + num).slice(-2);
+}
+

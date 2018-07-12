@@ -39,7 +39,7 @@ export default {
 	position: fixed;
     top: 0;
     left: 0;
-    z-index: 6;
+    z-index: 12;
 }
 .left{
 	width: 45%;

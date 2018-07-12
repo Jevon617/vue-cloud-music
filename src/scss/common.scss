@@ -1,6 +1,15 @@
 
 @import "./mixin.scss";
 
+@font-face {
+    font-family: 'iconfont';  /* project id 744302 */
+    src: url('http://at.alicdn.com/t/font_744302_v5uv8qnpt2s.eot');
+    src: url('http://at.alicdn.com/t/font_744302_v5uv8qnpt2s.eot?#iefix') format('embedded-opentype'),
+    url('http://at.alicdn.com/t/font_744302_v5uv8qnpt2s.woff') format('woff'),
+    url('http://at.alicdn.com/t/font_744302_v5uv8qnpt2s.ttf') format('truetype'),
+    url('http://at.alicdn.com/t/font_744302_v5uv8qnpt2s.svg#iconfont') format('svg');
+}
+
 body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4,h5, h6, i, b, textarea, button, input, select, figure, figcaption{
   padding: 0;
   margin: 0;
@@ -14,6 +23,7 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
   -webkit-tap-highlight-color:transparent;
   -webkit-font-smoothing: antialiased;
   outline: none;
+  
   &:hover{
     outline: none;
   }
