@@ -10,7 +10,7 @@
     	<img :src="$play.album.picUrl" @click="$router.push('/mplay')">
     	<div class="middle">
     		<div class="title">{{ $play.name }}</div>
-    		<div class="lyric">作曲　:　文健</div>
+    		<div class="lyric">{{ $lyric }}</div>
     	</div>
 
     	<div class="play1" @click="play" v-show="$store.state.states == 'paused'"></div>
@@ -30,14 +30,17 @@ import { Bus } from '../bus.js';
 import cprogress from './progress-circle.vue';
 import { clone } from '../service/utlis.js';
 import { getLyric } from '../service/getData.js';
+import { s2m } from '../service/utlis.js';
 
 
 export default {
 	data(){
 		return{
-			state : 'paused',
-			radius : 60,
-			isChange : false
+			map          : {},
+			state        : 'paused',
+			radius       : 60,
+			isChange     : false,
+			currentLyric : '横滑可以切换下一首哦'
 		}
 	},
 	props:{
@@ -67,8 +70,12 @@ export default {
 		$precent(){
 			let duration = this.$play.duration/1000;
 			return Math.min(1, this.$store.state.currentTime/duration);
+		},
+		$lyric(){
+			let l = this.map['$' + s2m(this.$store.state.currentTime)];
+			if(l)  this.currentLyric = l;
+			return this.currentLyric;
 		}
-
 	},
 	methods:{
 		showList(){
@@ -121,9 +128,13 @@ export default {
 			}
 		},
 		async getLyric(){
-
+			if(!this.$play.id) return;
+			
             this.$store.state.lyric = [];
+            this.map = {};
             let res =  await getLyric(this.$play.id);
+
+            if(!res.data.lrc) return;
 
             let lyric = res.data.lrc.lyric;
             let arr = lyric.split('[');
@@ -132,7 +143,9 @@ export default {
             arr.forEach(a=>{
                 this.$store.state.lyric.push(a.split(']'));
             })
-            console.log(this.$store.state.lyric);
+            this.$store.state.lyric.forEach(l=>{
+            	this.map['$'+l[0].split('.')[0]] = l[1];
+            })
         }
 	}, 
 	watch: {
@@ -155,7 +168,7 @@ export default {
 		},
 		$currentLength : function(){
 			this.isChange = true;
-		}
+		},
 
 	},
 	components:{
@@ -223,6 +236,11 @@ export default {
 			color: gray;
 			font-size: px2rem(20);
 			line-height: px2rem(40);
+			height: px2rem(40);
+			overflow: hidden;
+			max-width: px2rem(460);
+			white-space: nowrap;
+			text-overflow: ellipsis;
 		}
 	}
 	.play1{

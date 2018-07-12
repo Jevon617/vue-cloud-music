@@ -1,14 +1,19 @@
-import Vue    from 'vue'
-import Router from 'vue-router'
-import home   from '../pages/home.vue'
-import login  from '../pages/login.vue'
-import main   from '../pages/main.vue'
-import manage from '../pages/manage.vue'
-import music  from '../pages/music.vue'
-import radio  from '../pages/radio.vue'
-import search from '../pages/search.vue'
-import rSongs from '../pages/recommendSongs.vue'
-import mplay  from '../pages/music_play.vue'
+import Vue     from 'vue'
+import Router  from 'vue-router'
+import home    from '../pages/home.vue'
+import login   from '../pages/login.vue'
+import main    from '../pages/main.vue'
+import manage  from '../pages/manage.vue'
+import music   from '../pages/music.vue'
+import radio   from '../pages/radio.vue'
+import search  from '../pages/search.vue'
+import rSongs  from '../pages/recommendSongs.vue'
+import mplay   from '../pages/music_play.vue'
+import sheets  from '../pages/songsheets.vue'
+import sheet   from '../pages/songsheet.vue'
+import comment from '../pages/comment.vue'
+
+
 
 
 
@@ -64,6 +69,21 @@ export default new Router({
       path : '/mplay',
       name : 'mplay',
       component: mplay
+    },
+    {
+      path : '/sheets',
+      name : 'sheets',
+      component: sheets
+    },
+    {
+      path : '/sheet',
+      name : 'sheet',
+      component: sheet
+    },
+    {
+      path : '/comment',
+      name : 'comment',
+      component: comment
     }
   ]
 })

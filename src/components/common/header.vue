@@ -1,8 +1,10 @@
 <template>
-    <div class="head">
+    <div class="head" :style="{ backgroundColor : bgColor }">
     	<div class="left">
     		<div class="back" @click="$router.go(-1)"></div>
-    		<slot name="middle" />
+    		<div class="middle">
+    			<slot name="middle"  />
+    		</div>
     	</div>
     	<div class="right">
     		<slot name="right" />
@@ -12,6 +14,12 @@
 
 <script>
 export default {
+	props : {
+		bgColor : {
+			type : String,
+			default : '#9f1d1d'
+		}
+	}
     
 }
 </script>
@@ -27,7 +35,6 @@ export default {
 	font-size: px2rem(36);
 	color: white;
 	@include flex(space-between);
-	background-color: $bg;
 	@include padding(0 px2rem(40));
 	position: fixed;
     top: 0;
@@ -35,14 +42,21 @@ export default {
     z-index: 6;
 }
 .left{
-	width: 38%;
+	width: 45%;
 	height: 100%;
 	@include flex(space-between);
+	.middle{
+		width: 70%;
+		text-align: left;
+	}
 }
 .back{
 	width: px2rem(50);
 	height: px2rem(50);
 	@include bg("../../images/back.svg");
+}
+.right{
+	width: 25%;
 }
 
 </style>

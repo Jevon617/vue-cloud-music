@@ -22,8 +22,10 @@ export default{
 
 		}else if(i != -1 && payload.next){ // 已存在并下一曲
 
-			let song = state.songs.splice(i,1);
-			state.songs.splice(state.currentIndex+1, 0, payload.song);
+			if(i != state.currentIndex){
+				let song = state.songs.splice(i,1);
+				state.songs.splice(state.currentIndex+1, 0, payload.song);
+			}
 			$app.$toast('已成功添加下一曲');
 
 			console.log('添加下一曲',state.songs);

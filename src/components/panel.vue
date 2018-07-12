@@ -6,7 +6,8 @@
     	</div>
     	<div class="list_box">
     		<div class="item" v-for="item in list">
-    			<img v-lazy="item[urlType]">
+    			<img v-lazy="item.song.album.picUrl" v-if="urlType=='song'">
+    			<img v-lazy="item[urlType]" v-else>
     			<div class="tip"> {{ item.name }} </div>
     		</div>
     		<div class="clear"></div>
@@ -76,7 +77,7 @@ export default {
 			.tip{
 				height: px2rem(80);
 				line-height: px2rem(40);
-				font-size: px2rem(26);
+				font-size: px2rem(24);
 				width: px2rem(220);
 				text-align: left;
 				overflow: hidden;

@@ -19,9 +19,13 @@
 		    		    :class="{ on : index == $store.state.currentIndex }">
 		    			<div class="info" @click="change(index)">
 		    				<span class="name">{{item.name}}</span> 
-		    				<span class="author"
+		    				<span class="author" v-if="item.artists"
 		    				     :class="{ on : index == $store.state.currentIndex }">
 		    					-　{{ item.artists[0].name }}
+		    				</span>
+		    				<span class="author" v-else
+		    				     :class="{ on : index == $store.state.currentIndex }">
+		    					-　{{ item.ar[0].name }}
 		    				</span>
 		    			</div>
 		    			<div class="close" @click="del(index)"></div>

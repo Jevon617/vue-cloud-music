@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="main" :class="{ padding : !$store.state.songs.length}">
     	<header>
 			<div class="left" @click="showDrawer"></div>
     		<div class="middle">
@@ -112,7 +112,9 @@ header{
 	overflow: scroll;
 	height: 100%;
 }
-
+.padding{
+	@include padding(px2rem(120) 0 0 0);
+}
 
 
 </style>

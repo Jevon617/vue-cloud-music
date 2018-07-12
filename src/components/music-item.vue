@@ -5,8 +5,13 @@
     		<div class="info">
     			<div class="title">{{ song.name }}</div>
     			<div class="author">
-    				<span class="sq">SQ</span>
-    				{{ song.artists[0].name+ '-' + song.album.name }}
+    				<span class="sq" v-show="show">SQ</span>
+    				<span v-if="song.artists">
+    					{{  song.artists[0].name+ '-' + song.album.name }}
+    				</span>
+    				<span v-else>
+    					{{  song.ar[0].name+ '-' + song.al.name }}
+    				</span>
     			</div>
     		</div>
     		<div class="play" @click="add"></div>
@@ -29,6 +34,10 @@ export default {
 			default : ()=>{
 				return {}
 			}
+		},
+		show : {
+			type : Boolean,
+			default : true
 		}
 	},
 	methods:{
@@ -107,7 +116,6 @@ export default {
 
 		}
 		.more{
-			
 			width: px2rem(100);
 			height: 100%;
 			@include bg('../images/more.svg');

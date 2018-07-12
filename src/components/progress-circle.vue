@@ -31,9 +31,6 @@ export default {
 		dashOffset() {
 			return (1 - this.percent) * this.dashArray
 		}
-    },
-    mounted(){
-    	console.log(this.px2rem(10,750))
     }
 }
 </script>

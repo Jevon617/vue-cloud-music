@@ -83,11 +83,11 @@
 
 <script>
 
-import Bscroll from 'better-scroll';
+import Bscroll        from 'better-scroll';
+import { Bus }        from '../bus.js';
+import { s2m, m2s }   from '../service/utlis.js';
 import { mapGetters } from 'vuex';
-import progressLine from '../components/progress-line.vue';
-import { Bus } from '../bus.js';
-import { s2m, m2s } from '../service/utlis.js';
+import progressLine   from '../components/progress-line.vue';
 
 export default {
     data(){
@@ -109,10 +109,12 @@ export default {
         }
     },
     created(){
+
+        this.$store.state.lyric.length && this.initMap(); 
         this.count = this.type.findIndex((value)=>{
             return value == this.$store.state.type;
         });
-        this.$store.state.lyric.length && this.initMap(); 
+        
     },
     mounted(){
         this.initScroll();

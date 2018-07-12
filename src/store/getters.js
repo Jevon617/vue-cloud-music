@@ -9,12 +9,19 @@ export default{
 		if(state.songs.length == 1){
 			state.currentIndex = 0;
 			song = state.songs[0];
+			song.duration = song.duration || song.dt;
+			song.album = song.album || song.al;
+			song.artists = song.artists || song.ar
 		}
 
-		console.log(state.currentIndex);
 		if(JSON.stringify(song) != '{}'){
+			song.duration = song.duration || song.dt;
+			song.album = song.album || song.al;
+			song.artists = song.artists || song.ar;
+			console.log(song.artists[0]);
 			localStorage.setItem('songs',JSON.stringify(state.songs));
 			localStorage.setItem('currentIndex',state.currentIndex);
+
 		}
 		return song;
 	},

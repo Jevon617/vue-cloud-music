@@ -1,5 +1,5 @@
 <template>
-    <div class="rSongs">
+    <div class="rSongs" :class="{ padding : !$store.state.songs.length}">
     	<heador>
     		<div slot="middle">每日推荐</div>
     	</heador>
@@ -59,7 +59,6 @@ export default {
 			}
 		},
 		addSongs(index){
-
 			let songs = clone(this.songs);
 			let i = Number(index)-1;
 			this.$store.commit('addSongs', {song:songs, recommend:true, index : i});
@@ -81,6 +80,9 @@ export default {
 <style scoped  lang="scss">
 @import '../scss/mixin.scss';
 @import '../scss/px2rem.scss';
+.padding{
+	@include padding(px2rem(120) 0 0 0);
+}
 
 .rSongs{
 	width: 100%;
@@ -110,7 +112,6 @@ export default {
 			bottom: px2rem(60);
 			left: px2rem(60);
 			line-height: px2rem(30);
-
 		}
 	}
 	

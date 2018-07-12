@@ -26,6 +26,23 @@ export  const getMvs = ()=>$http('/personalized/mv');
 // 每日推荐歌单
 export const getDaySongs = ()=>$http('/recommend/songs');
 
+// 推荐新音乐
+export const getNewSongs = ()=>$http('/personalized/newsong');
+
 // 获取歌词
 export const getLyric = (id)=>$http('/lyric?id='+id);
+
+// 获取全部歌单
+export const getAllSheet = (limit)=>$http('/top/playlist?limit='+limit);
+
+// 获取精品歌单
+export const getFineSheet = (limit)=>$http('/top/playlist/highquality?limit='+limit);
+
+// 获取歌单详情
+export const getSheetDetail = (id)=>$http('/playlist/detail?id='+id);
+
+// 获取歌单评论
+export const getSheetComment = (id)=>$http('/comment/playlist?id='+id);
+
+
 

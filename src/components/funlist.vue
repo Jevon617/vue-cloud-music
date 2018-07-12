@@ -16,10 +16,10 @@
 						<div slot="right" class="word" @click="item.func">
 								{{ item.name }} 
 							<span v-show="i == 5" style="color: black" >
-								{{song.artists[0].name}} 
+								{{song.artists && song.artists[0].name || song.ar[0].name}} 
 							</span>
 							<span v-show="i == 6" style="color: black">
-							    {{song.album.name}} 
+							    {{song.album && song.album.name || song.al.name }} 
 							</span>
 						</div>
 					</item>

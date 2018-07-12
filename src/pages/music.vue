@@ -19,7 +19,7 @@
     			</div>
     			<div class="tip">每日推荐</div>
     		</div>
-    		<div>
+    		<div @click="$router.push('/sheets')">
     			<div class="img sheet_img"></div>
     			<div class="tip">歌单</div>
     		</div>
@@ -33,12 +33,16 @@
     		<panel title="独家放送" :list="specials" route="/music"  urlType="sPicUrl"></panel>
     		<panel title="推荐MV" :list="mvs" route="/music"  ></panel>
     		<panel title="主播电台" :list="radios" route="/music" urlType="coverUrl"></panel>
+    		<panel title="最新音乐" :list="newSongs" route="/music" urlType="song"></panel>
+
     	</div>
     </div>
 </template>
 
 <script>
-import { getImages, getSheet, getMvs, getradios, getSpecials } from '../service/getData.js';
+import { getImages, getSheet, getMvs      } from '../service/getData.js';
+import { getNewSongs, getradios, getSpecials } from '../service/getData.js';
+
 import panel from '../components/panel.vue';
 
 export default {
@@ -49,7 +53,8 @@ export default {
 			sheet 	  : [],
 			mvs 	  : [],
 			radios 	  : [],
-			specials  : [],	
+			specials  : [],
+			newSongs  : [],	
 			swiperOption:{
 				autoplay : true,
 				pagination: { el: '.swiper-pagination'},
@@ -77,7 +82,6 @@ export default {
 		async getMvs(){
 			try{
 				let res = await getMvs();
-				console.log(res);
 				this.mvs = (res.data.code == 200) && res.data.result || [];
 				this.mvs = this.mvs.splice(0,3);
 			}catch(e){
@@ -92,14 +96,21 @@ export default {
 			}catch(e){
 				this.$toast('网络好像出现了问题哦!');
 			}
-		}
-		,
+		},
 		async getSpecials(){
 			try{
 				let res = await getSpecials();
 				this.specials = (res.data.code == 200) && res.data.result || [];
 				this.specials = this.specials.splice(0,3);
-				console.log(this.specials);
+			}catch(e){
+				this.$toast('网络好像出现了问题哦!');
+			}
+		},
+		async getNewSongs(){
+			try{
+				let res = await getNewSongs();
+				this.newSongs = (res.data.code == 200) && res.data.result || [];
+				this.newSongs = this.newSongs.splice(0,3);
 			}catch(e){
 				this.$toast('网络好像出现了问题哦!');
 			}
@@ -112,6 +123,7 @@ export default {
 		this.getMvs();
 		this.getradios();
 		this.getSpecials();
+		this.getNewSongs();
 	},
 	components:{
 		panel
@@ -184,9 +196,7 @@ export default {
 		width: px2rem(150);
 		text-align: center;
 	}
-	.content{
-		
-	}
+	
 }
 
 </style>
