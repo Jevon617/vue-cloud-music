@@ -81,7 +81,6 @@ export default {
 <style scoped  lang="scss">
 
 @import '../scss/mixin.scss';
-@import '../scss/px2rem.scss';
 
 .comment_item{
 	@include padding(px2rem(30) px2rem(20));

@@ -18,11 +18,11 @@ export default{
 			song.duration = song.duration || song.dt;
 			song.album = song.album || song.al;
 			song.artists = song.artists || song.ar;
-			console.log(song.artists[0]);
 			localStorage.setItem('songs',JSON.stringify(state.songs));
 			localStorage.setItem('currentIndex',state.currentIndex);
 
 		}
+		console.log(song);
 		return song;
 	},
 	$currentLength(state){

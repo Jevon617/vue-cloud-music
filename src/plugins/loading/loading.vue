@@ -24,7 +24,6 @@ export default {
 
 <style scoped  lang="scss">
 @import "../../scss/mixin.scss";
-@import "../../scss/px2rem.scss";
 .loading{
 	width: px2rem(250);
 	height: px2rem(250);

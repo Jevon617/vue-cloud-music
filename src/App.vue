@@ -70,8 +70,8 @@ export default {
 </script>
 
 <style  lang="scss">
-@import "./scss/px2rem";
 @import "./scss/common.scss";
+@import "./scss/mixin.scss";
 #app {
     font-family: 'iconfont','Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

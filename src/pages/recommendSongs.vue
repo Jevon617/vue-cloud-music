@@ -79,7 +79,6 @@ export default {
 
 <style scoped  lang="scss">
 @import '../scss/mixin.scss';
-@import '../scss/px2rem.scss';
 .padding{
 	@include padding(px2rem(120) 0 0 0);
 }

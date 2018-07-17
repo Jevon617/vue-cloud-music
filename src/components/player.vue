@@ -6,7 +6,6 @@
 		      :src="'http://music.163.com/song/media/outer/url?id='
 		      + $play.id +'.mp3'">
 		</audio>
-		
     	<img :src="$play.album.picUrl" @click="$router.push('/mplay')">
     	<div class="middle">
     		<div class="title">{{ $play.name }}</div>
@@ -102,10 +101,14 @@ export default {
 		switch(num){
 			let currentIndex = this.$store.state.currentIndex;
 			let length = this.$store.state.songs.length;
+			let song = clone(this.$store.state.songs[currentIndex]);
+
 			if(this.$store.state.type == '列表循环'){
 				console.log('列表循环');
 				if(num>0){
 					if(length-1 == currentIndex){
+						// 一首歌无限循环
+						length == 1 && this.$store.state.songs.splice(currentIndex, 1, song);
 						this.$store.state.currentIndex = 0;
 					}else{
 						this.$store.state.currentIndex ++;
@@ -118,12 +121,15 @@ export default {
 				let random = Math.floor(Math.random()*length);
 				if(random == currentIndex){
 					random = random+1;
-					if(random >= length-1) random = 0;
+					if(random >= length-1){
+						length == 1 && this.$store.state.songs.splice(currentIndex, 1, song);
+						random = 0;
+					} 
 				}
 				this.$store.state.currentIndex = random;
 			}else{
 				console.log('单曲循环');
-				let song = clone(this.$store.state.songs[currentIndex]);
+				
 				this.$store.state.songs.splice(currentIndex, 1, song);
 			}
 		},
@@ -176,7 +182,7 @@ export default {
 	},
 	mounted(){
 		if(this.$store.state.songs.length){
-			this.$refs.audio.currentTime = Number(localStorage.getItem('current'+this.id)) || 0;
+			this.$refs.audio.currentTime = Number(localStorage.getItem('current'+this.id)) ||0;
 		};
 		Bus.$on('play_music',()=>{
 			this.$refs.audio && this.$refs.audio.paused && this.$refs.audio.play();
@@ -203,7 +209,6 @@ export default {
 <style scoped  lang="scss">
 
 @import "../scss/mixin.scss";
-@import "../scss/px2rem.scss";
 
 .player{
 	height: px2rem(110);
@@ -213,7 +218,7 @@ export default {
 	right: 0;
 	z-index: 8;
 	@include flex(space-between);
-	border-top: px2rem(2) solid #ccc;
+	border-top: px2rem(.5) solid #ccc;
 	background-color: rgba(255,255,255,.9);
 	@include padding(0 px2rem(10));
 	box-shadow: 0px 0px 3.1rem 0.033rem rgba(37, 37, 37, 0.5);

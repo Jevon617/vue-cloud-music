@@ -15,7 +15,7 @@
     			             :class="{ 'radio_on' : $route.path == '/main/radio'}">
     			</router-link>
     		</div>
-			<div class="right"></div>
+			<div class="right" @click="$router.push('/search')"></div>
 		</header>
 		<div class="content">
     		<router-view/>
@@ -45,7 +45,6 @@ export default {
 <style scoped  lang="scss">
 
 @import "../scss/mixin.scss";
-@import "../scss/px2rem.scss";
 .main{
 	height: 100%;
 }

@@ -52,7 +52,12 @@ export const m2s = (m)=>{
 }
 
 
-export const addPrix = function(num){
+export const addPrix = (num)=>{
     return (Array(2).join(0) + num).slice(-2);
 }
 
+export const parseDate = (timeStamp)=>{
+    let date = new Date(timeStamp);
+    return date.getFullYear() + '.' + date.getMonth() + 1 + '.' + date.getDate();
+
+}

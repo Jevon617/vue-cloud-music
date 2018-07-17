@@ -12,6 +12,7 @@ import mplay   from '../pages/music_play.vue'
 import sheets  from '../pages/songsheets.vue'
 import sheet   from '../pages/songsheet.vue'
 import comment from '../pages/comment.vue'
+import quality from '../pages/highquality.vue'
 
 
 
@@ -84,6 +85,11 @@ export default new Router({
       path : '/comment',
       name : 'comment',
       component: comment
+    },
+    {
+      path : '/quality',
+      name : 'quality',
+      component: quality
     }
   ]
 })

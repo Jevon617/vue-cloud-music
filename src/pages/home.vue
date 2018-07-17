@@ -32,7 +32,6 @@ export default {
 
 <style scoped  lang="scss">
 @import "../scss/mixin.scss";
-@import "../scss/px2rem.scss";
 .home{
 	width: 100%;
 	height: 100%;

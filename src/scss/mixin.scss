@@ -2,6 +2,11 @@ $color: #3190e8;
 $bg: #9f1d1d;
 $border:#eadede;
 
+$designWidth : 750; //如设计图是750
+@function px2rem( $px ){
+    @return $px*320/$designWidth/20 + rem;
+}
+
 // 兼容写法的mixin
 @mixin prix($attr,$value){
 

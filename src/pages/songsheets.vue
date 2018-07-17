@@ -12,7 +12,7 @@
 
 			<div slot="content">
 
-    			<div class="banner" v-if="fineSheet.length">
+    			<div class="banner" v-if="fineSheet.length" @click="$router.push('/quality')">
 		    		<div class="img"
 		    		    :style="{ backgroundImage :'url('+fineSheet[0].coverImgUrl+')'}">
 		    		</div>
@@ -81,7 +81,6 @@ export default {
 				let res = await getFineSheet(20);
 				this.fineSheet = (res.data.code == 200) && res.data.playlists || [];
 			}catch(e){
-
 				this.$toast('网络好像出现了问题哦!');
 			}
 		},
@@ -90,7 +89,6 @@ export default {
 				let res = await getAllSheet(this.count);
 				this.allSheet = (res.data.code == 200) && res.data.playlists || [];
 				this.count +=20;
-				console.log(this.allSheet);
 			}catch(e){
 				this.$refs.mscroll.finishPullUp();
 				this.$toast('网络好像出现了问题哦!');
@@ -107,15 +105,13 @@ export default {
 
 <style scoped  lang="scss">
 @import "../scss/mixin.scss";
-@import "../scss/px2rem.scss";
-.padding{
-	@include padding(px2rem(120) 0 0 0);
-}
+
 .sheet{
 	height: 100%;
 	overflow: hidden;
 	position: relative;
 	background-color: white;
+	z-index: 8;
 	.icon{
 		display: inline-block;
 		width: px2rem(30);
@@ -217,6 +213,9 @@ export default {
 		}
 	}
 	
+}
+.padding{
+	@include padding(px2rem(120) 0 0 0);
 }
 
 </style>

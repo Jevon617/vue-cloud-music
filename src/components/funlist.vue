@@ -34,6 +34,8 @@
 <script>
 import item from './common/item.vue';
 import { clone } from '../service/utlis.js';
+import { getAlbum } from '../service/getData.js';
+
 
 export default {
 	data(){
@@ -67,11 +69,18 @@ export default {
 		hideList(){
 			this.show = false;
 		},
-		addNext(){
+		async addNext(){
 			let song = clone(this.song);
 			song.play =  false;
-			this.$store.commit('addSongs', { song:song, next:true });
-			this.show = false;
+			if(!song.album.picUrl){
+				let res = await getAlbum(song.album.id);
+				song.album.picUrl = res.data.code == 200 && res.data.album.picUrl || '';
+				this.$store.commit('addSongs', { song:song, next:true });
+				this.show = false;
+			}else{
+				this.$store.commit('addSongs', { song:song, next:true });
+				this.show = false;
+			}
 		},
 		downLoad(){
 			console.log('download');
@@ -107,7 +116,6 @@ export default {
 
 <style scoped  lang="scss">
 @import "../scss/mixin.scss";
-@import "../scss/px2rem.scss";
 
 .bg{
 	width: 100%;

@@ -116,7 +116,6 @@ export default {
 <style scoped  lang="scss">
 
 @import "../scss/mixin.scss";
-@import "../scss/px2rem.scss";
 .comment{
 	height: 100%;
 	z-index: 11;

@@ -1,8 +1,8 @@
 <template>
     <div class="musicItem">
-    	<div class="left">{{ index }}</div>
+    	<div class="left" v-show="Number(index)">{{ index }}</div>
     	<div class="right">
-    		<div class="info">
+    		<div class="info"  @click="add">
     			<div class="title">{{ song.name }}</div>
     			<div class="author">
     				<span class="sq" v-show="show">SQ</span>
@@ -14,7 +14,7 @@
     				</span>
     			</div>
     		</div>
-    		<div class="play" @click="add"></div>
+    		<div class="play"></div>
     		<div class="more" @click="showFunList"></div>
     	</div>
     </div>
@@ -27,7 +27,7 @@ export default {
 	props:{
 		index : {
 			type : String,
-			default : 0		
+			default : '0'		
 		},
 		song : {
 			type : Object,
@@ -56,16 +56,16 @@ export default {
 <style scoped  lang="scss">
 
 @import '../scss/mixin.scss';
-@import '../scss/px2rem.scss';
 
 .musicItem{
 	width: 100%;
-	height: px2rem(120);
+	height: px2rem(140);
 	@include flex;
+	@include padding(0 0 0 px2rem(5));
 	.left{
-		width: px2rem(120);
+		width: px2rem(140);
 		height: 100%;
-		line-height: px2rem(120);
+		line-height: px2rem(130);
 		color: gray;
 		text-align: center;
 	}
@@ -75,12 +75,13 @@ export default {
 		height: 100%;
 		@include padding(px2rem(10) 0 px2rem(20));
 		@include flex(space-between);
+		margin-left: px2rem(5);
 		.info{
 			@include prix(flex, 1);
 		}
 		.title{
 			width: px2rem(400);
-			font-size: px2rem(30);
+			font-size: px2rem(26);
 			line-height: px2rem(70);
 			height: px2rem(70);
 			overflow: hidden;
@@ -90,7 +91,7 @@ export default {
 		}
 		.author{
 			width: px2rem(400);
-			font-size: px2rem(24);
+			font-size: px2rem(20);
 			line-height: px2rem(24);
 			color: gray;
 			overflow: hidden;

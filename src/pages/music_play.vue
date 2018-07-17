@@ -41,7 +41,9 @@
 
                 <div class="btns">
                     <div class="love"></div>
-                    <div class="download"></div>
+                    <div class="download">
+                        <a :href="'http://music.163.com/song/media/outer/url?id='+ $play.id +'.mp3'" :download="$play.name+'.mp3'" target="_blank"></a>
+                    </div>
                     <div class="comment" @click="goComment"></div>
                     <div class="more" @click="showFunList"></div>
                 </div>
@@ -229,7 +231,8 @@ export default {
                     type     : 'music'
                 }
             })
-        }
+        },
+
     },
 
     computed:{
@@ -283,7 +286,6 @@ export default {
 
 <style scoped  lang="scss">
 
-@import '../scss/px2rem.scss';
 @import '../scss/mixin.scss';
 
 .music_play{
@@ -443,7 +445,12 @@ export default {
                 @include bg('../images/love_g.svg')
             }
             .download{
-                @include bg('../images/download_g.svg')
+                @include bg('../images/download_g.svg');
+                a{
+                    display: inline-block;
+                    width: 100%;
+                    height: 100%;
+                }
             }
             .comment{
                 @include bg('../images/comment_g.svg')

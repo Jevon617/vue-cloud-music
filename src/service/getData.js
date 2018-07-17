@@ -46,3 +46,15 @@ export const getComment = (type,id,limit)=>$http(`/comment/${type}?id=${id}&limi
 
 // 给评论点赞或者取消
 export const praise = (id,cid,t,type)=>$http(`/comment/like?id=${id}&cid=${cid}&t=${t}&type=${type}`)
+
+// 搜索
+export const search = (keywords, limit, type=1) => $http(`/search?keywords=${keywords}&limit=${limit}&type=${type}`);
+
+// 获取热门标签
+export const getHots = ()=>$http('/search/hot');
+
+// 获取搜索建议
+export const getSuggest = (keywords)=>$http(`/search/suggest?keywords=${keywords}&limit=10`);
+
+// 获取专辑
+export const getAlbum = (id)=>$http('/album?id='+id);

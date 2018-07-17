@@ -20,7 +20,7 @@
 	    			</div>
 	    			<div class="author">
 	    				<span class="headImg" 
-	    				      :style="{ backgroundImage:'url('+playlist.creator.avatarUrl+')'}">
+	    				     :style="{ backgroundImage:'url('+playlist.creator.avatarUrl+')'}">
 	    				</span>
 	    				<span class="name">{{playlist.creator.nickname }}</span>
 	    				<span class="icon"></span>
@@ -130,7 +130,6 @@ export default {
 
 <style scoped  lang="scss">
 @import "../scss/mixin.scss";
-@import "../scss/px2rem.scss";
 
 .sheet{
 	height: 100%;

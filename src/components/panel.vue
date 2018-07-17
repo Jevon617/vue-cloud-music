@@ -45,7 +45,6 @@ export default {
 
 <style scoped  lang="scss">
 
-@import '../scss/px2rem.scss';
 @import '../scss/mixin.scss';
 
 .panel{
