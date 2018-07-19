@@ -22,7 +22,7 @@ export default {
 		},
 		border : {
 			type : Boolean,
-			default : false 
+			default : true 
 		}
 	}
     

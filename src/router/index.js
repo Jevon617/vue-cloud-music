@@ -13,6 +13,7 @@ import sheets  from '../pages/songsheets.vue'
 import sheet   from '../pages/songsheet.vue'
 import comment from '../pages/comment.vue'
 import quality from '../pages/highquality.vue'
+import rank    from '../pages/rank.vue'
 
 
 
@@ -90,6 +91,11 @@ export default new Router({
       path : '/quality',
       name : 'quality',
       component: quality
+    },
+    {
+      path : '/rank',
+      name : 'rank',
+      component: rank
     }
   ]
 })

@@ -9,9 +9,9 @@
 			</swiper>
     	</div>
     	<div class="catalog">
-    		<div>
+    		<div @click="getPersonalFM">
     			<div class="img person_img"></div>
-    			<div class="tip">私人FM</div>
+    			<div class="tip" >私人FM</div>
     		</div>
     		<div @click="$router.push('/rsongs')">
     			<div class="img recommend_img">
@@ -23,24 +23,23 @@
     			<div class="img sheet_img"></div>
     			<div class="tip">歌单</div>
     		</div>
-    		<div>
+    		<div @click="$router.push('/rank')">
     			<div class="img rank_img"></div>
     			<div class="tip">排行榜</div>
     		</div>
     	</div>
     	<div class="content">
-    		<panel title="推荐歌单" :list="sheet" route="/music"></panel>
+    		<panel title="推荐歌单" :list="sheet" route="/sheets" itemUrl="/sheet"></panel>
     		<panel title="独家放送" :list="specials" route="/music"  urlType="sPicUrl"></panel>
-    		<panel title="推荐MV" :list="mvs" route="/music"  ></panel>
+    		<panel title="推荐MV"   :list="mvs" route="/music"  ></panel>
     		<panel title="主播电台" :list="radios" route="/music" urlType="coverUrl"></panel>
     		<panel title="最新音乐" :list="newSongs" route="/music" urlType="song"></panel>
-
     	</div>
     </div>
 </template>
 
 <script>
-import { getImages, getSheet, getMvs      } from '../service/getData.js';
+import { getImages, getSheet, getMvs, getPersonalFM } from '../service/getData.js';
 import { getNewSongs, getradios, getSpecials } from '../service/getData.js';
 
 import panel from '../components/panel.vue';
@@ -114,6 +113,11 @@ export default {
 			}catch(e){
 				this.$toast('网络好像出现了问题哦!');
 			}
+		},
+		async getPersonalFM(){
+			console.log(213);
+			let res = await getPersonalFM();
+			console.log(res.data.data);
 		}
 	},
 	mounted(){

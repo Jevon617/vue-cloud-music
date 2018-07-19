@@ -58,3 +58,18 @@ export const getSuggest = (keywords)=>$http(`/search/suggest?keywords=${keywords
 
 // 获取专辑
 export const getAlbum = (id)=>$http('/album?id='+id);
+
+// 私人FM
+export const getPersonalFM = ()=>$http('/personal_fm');
+
+// 获取个人歌单
+export const getPersonalSheet = (uid)=>$http('/user/playlist?uid='+uid);
+
+// 新建歌单
+export const bulidSheet = (name)=>$http('/playlist/create?name='+name);
+
+// 更新歌单
+export const updateSheet = (id, name, desc, tags)=>$http(`/playlist/update/?id=${id}&name=${name}&desc=${desc}&tags=${tags}`);
+
+// 获取排行榜
+export const getRankList = (idx)=>$http('/top/list?idx=' + idx);

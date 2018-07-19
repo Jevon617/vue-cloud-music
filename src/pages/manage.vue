@@ -1,23 +1,23 @@
 <template>
     <div class="music">
 		<div class="list">
-			<item :border="true">
+			<item >
 				<div slot="left" class="img music_r"></div>
 				<div slot="right" class="word">本地音乐 <span>(0)</span></div>
 			</item>
-			<item :border="true">
+			<item>
 				<div slot="left" class="img play"></div>
 				<div slot="right" class="word">最近播放 <span>(0)</span></div>
 			</item>
-			<item :border="true">
+			<item>
 				<div slot="left" class="img download"></div>
 				<div slot="right" class="word">下载管理 <span>(0)</span></div>
 			</item>
-			<item :border="true">
+			<item>
 				<div slot="left" class="img radio"></div>
 				<div slot="right" class="word">我的电台 <span>(0)</span></div>
 			</item>
-			<item :border="true">
+			<item>
 				<div slot="left" class="img collection"></div>
 				<div slot="right" class="word">我的收藏 <span>(0)</span></div>
 			</item>
@@ -25,12 +25,17 @@
 		<div class="sheet">
 			<div class="menu" @click="show = !show">
 				<span class="icon" :class="{ 'icon1' : show }"></span>
-				<span>创建的歌单(1)</span>
+				<span class="word">创建的歌单({{playlist.length}})</span>
+				<i class="iconfont icon-setup" @click="bulidSheet"></i>
 			</div>
 			<div class="content" v-show="show">
-				<item :border="true" :height="120">
-					<div slot="left" class="img1 love"></div>
-					<div slot="right" class="word word1">我喜欢的音乐 <span>(0)</span></div>
+				<item :border="true" :height="120" v-for="item, index in playlist" :key="index">
+					<img slot="left" class="img1 love" :src="item.coverImgUrl"/>
+					
+					<div slot="right" class="word word1">
+						{{ index == 0 && '我喜欢的音乐' || item.name }} 
+						<span>({{ item.trackCount }})</span>
+					</div>
 				</item>
 			</div>
 		</div>
@@ -41,15 +46,46 @@
 <script>
 
 import item from '../components/common/item.vue';
+import { getPersonalSheet, bulidSheet, updateSheet} from '../service/getData.js';
 
 export default {
 	data(){
 		return{
-			show : true
+			show : true,
+			playlist : []
 		}
 		
 	},
+	mounted(){
+		this.getPersonalSheet();
+	},
 	methods:{
+		async getPersonalSheet(){
+			try{
+				let uid = JSON.parse(localStorage.getItem('userInfo')).id;
+				let res = await getPersonalSheet(uid);
+				this.playlist = res.data.code == 200 && res.data.playlist || [];
+				console.log(this.playlist);
+
+			}catch(e){
+				this.$toast('你的网络好像出现了问题哦');
+			}
+		},
+		async bulidSheet(e){
+			e.stopPropagation();
+			try{
+				let res = await bulidSheet('回忆里的青春');
+				if(res.data.code == 200){
+					let playlist = res.data.playlist;
+					let result = await updateSheet(
+						res.data.id,playlist.name,playlist.description, playlist.tags);
+					console.log(result);
+					result.data.code == 200 && this.getPersonalSheet();
+				} 
+			}catch(e){
+				this.$toast('你的网络好像出现了问题哦');
+			}
+		}
 
 	},
 	components:{
@@ -67,6 +103,7 @@ export default {
 .music{
 	height: 100%;
 	font-size: px2rem(32);
+	overflow: scroll;
 	.music_r{
 		@include bg('../images/music_r.svg');
 	}
@@ -119,12 +156,16 @@ export default {
 			.icon1{
 				transform: rotate(90deg);
 			}
+			.icon-setup{
+				font-size: px2rem(28);
+			}
+			.word{
+				@include prix(flex, 1);
+			}
 		}
 		.img1{
 			width: 90%;
 			height: 90%;
-			@include bg("../images/love.svg");
-			background-color: #352f2f;
 			background-size: 60% 60%;
 			background-position: center center;
 			border-radius: px2rem(10);

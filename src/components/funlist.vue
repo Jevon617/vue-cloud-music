@@ -7,7 +7,7 @@
 		    		歌曲:　{{ song.name }}
 		    	</div>
 		    	<div class="list">
-		    		<item :border="true" v-for="item,i in list" :key="i" >
+		    		<item v-for="item,i in list" :key="i" >
 						<div slot="left" class="img"
 						     :style="{ background: 'url(' +item.url +') no-repeat',
 						               backgroundSize: '50% 50%',

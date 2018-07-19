@@ -41,12 +41,14 @@ export default {
     z-index: 12;
 }
 .left{
-	width: 45%;
+	width: 52%;
 	height: 100%;
 	@include flex(space-between);
 	.middle{
-		width: 70%;
+		width: 80%;
 		text-align: left;
+		overflow: hidden;
+		white-space: nowrap;
 	}
 }
 .back{

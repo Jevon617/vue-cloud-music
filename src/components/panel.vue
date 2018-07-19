@@ -1,14 +1,17 @@
 <template>
     <div class="panel">
-    	<div class="title">
+    	<div class="title" @click="$router.push(route)">
     		<span>{{ title }}</span>
     		<span class="icon"></span>
     	</div>
     	<div class="list_box">
-    		<div class="item" v-for="item in list">
+    		<div class="item" v-for="item in list"
+    			 @click='go(item.id)'>
+
     			<img v-lazy="item.song.album.picUrl" v-if="urlType=='song'">
     			<img v-lazy="item[urlType]" v-else>
     			<div class="tip"> {{ item.name }} </div>
+
     		</div>
     		<div class="clear"></div>
     	</div>
@@ -38,6 +41,16 @@ export default {
 		urlType:{
 			type : String,
 			default : 'picUrl'
+		},
+		itemUrl: {
+			type : String,
+			default : ''
+		}
+	},
+	methods:{
+		go(id){
+			if(!this.itemUrl) return;
+			this.$router.push(this.itemUrl + "?id=" + id);
 		}
 	}
 }
