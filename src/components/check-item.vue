@@ -1,11 +1,9 @@
 <template>
     <div class='check-item'>
     	<div class="item">
-    		<div class="left">
-    			<i class="icon-font icon-check-box-outline-blank" v-show="type=='unselect'">
-    			</i>
-    			<i class="icon-font icon-check-box" v-show="type=='selected'">
-    			</i>
+    		<div class="left" @click="song.select = !song.select">
+    			<i class="iconfont icon-unselect" v-show="!song.select"></i>
+    			<i class="iconfont icon-selected" v-show="song.select"></i>
     		</div>
     		<div class="right">
     			<div class="title">{{ song.name }}</div>
@@ -25,15 +23,12 @@
 
 <script>
 export default {
-	data(){
-		return{
-			type : 'unselect'
-		}
-	},
-	song:{
-		type : Object,
-		default: ()=>{
-			return {}
+	props:{
+		song:{
+			type : Object,
+			default: ()=>{
+				return {}
+			}
 		}
 	}
     
@@ -49,31 +44,36 @@ export default {
 }
 .left{
 	width: px2rem(120);
-	height: px2rem(120);
 	text-align: center;
+	height: px2rem(120);
 	line-height: px2rem(120);
 }
 i{
-	font-size: px2rem(40);
+	font-size: px2rem(50);
+	color: gray;
 }
-.icon-check-box{
+.icon-selected{
 	color: $bg;
+
 }
 
 .right{
 	@include prix(flex, 1);
+	border-bottom: px2rem(1) solid #ccc;
 }
 .title{
 	@include ellipsis;
-	height: px2rem(80);
+	height: px2rem(70);
 	font-size: px2rem(28);
-	line-height: px2rem(80);
+	max-width: px2rem(600);
+	line-height: px2rem(70);
 }
 .author{
 	color: gray;
 	@include ellipsis;
-	height: px2rem(40);
+	height: px2rem(50);
 	font-size: px2rem(20);
-	line-height: px2rem(40);
+	max-width: px2rem(600);
+	line-height: px2rem(50);
 }
 </style>

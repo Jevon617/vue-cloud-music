@@ -57,7 +57,7 @@ export default {
     computed:{
         padding(){
             let length = this.$store.state.songs.length;
-            let paths = [ '/', '/login', '/mplay', '/comment'];
+            let paths = [ '/', '/login', '/mplay', '/comment', '/check'];
             if(!length || paths.includes(this.$route.path)){
                 return true;
             }else{

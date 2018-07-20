@@ -6,7 +6,7 @@
     	</div>
     	<div class="right">
     		<div class="song" v-for="item,index in info.songs">
-    			<span>{{index+1}}.{{ item.name }}　－　 {{ item.ar[0].name }}</span>
+    			{{index+1}}.{{ item.name }}　－　 {{ item.ar[0].name }}
     		</div>
     	</div>
     </div>
@@ -68,6 +68,7 @@ export default {
 		border-bottom: px2rem(1) solid #ccc;
 		div{
 			width: 100%;
+			max-width: px2rem(450);
 			height: px2rem(80);
 			line-height: px2rem(80);
 			@include ellipsis;

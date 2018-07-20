@@ -6,13 +6,13 @@
         </div>
         <div class="share">
         	<div class="icon"></div>
-        	<div class="word">{{ playlist.shareCount || 'shareCount' }}</div>
+        	<div class="word">{{ playlist.shareCount || '分享' }}</div>
         </div>
         <div class="download">
         	<div class="icon"></div>
         	<div class="word">下载</div>
         </div>
-        <div class="choose">
+        <div class="choose" @click="goCheck">
         	<div class="icon"></div>
         	<div class="word">多选</div>
         </div>
@@ -32,7 +32,10 @@ export default {
 	methods:{
 		goComment(){
 			this.$emit('goComment');
-		}
+		},
+        goCheck(){
+            this.$emit('goCheck');
+        }
 	}
     
 }

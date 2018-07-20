@@ -118,7 +118,7 @@ export default {
 			try{
 				if(!this.keywords) return;
 
-				let res = await search(this.keywords, this.map['$'+this.type].limit,this.type);
+				let res = await search(this.keywords,this.map['$'+this.type].limit,this.type);
 				if(res.data.code == 200){
 
 					this.map['$'+this.type].list = res.data.result.songs 
@@ -173,10 +173,10 @@ export default {
 }
 .swipe{
 	width: 100%;
-	height: px2rem(80);
-	@include flex(space-around);
-	background-color: $bg;
 	color: white;
+	height: px2rem(80);
+	background-color: $bg;
+	@include flex(space-around);
 	div{
 		width: 10%;
 		height: px2rem(60);
@@ -200,9 +200,9 @@ export default {
 	@include padding(0 0 0 px2rem(10));
 }
 .mv{
+	@include flex;
 	height: px2rem(180);
 	@include padding(0 0 0 px2rem(10));
-	@include flex;
 	img{
 		width: px2rem(220);
 		height: px2rem(150);
@@ -210,14 +210,14 @@ export default {
 		margin-right: px2rem(20);
 	}
 	.right{
+		color: gray;
 		@include prix(flex, 1);
 		@include flex(center, column);
-		color: gray;
 		.title{
 			width: 100%;
+			color: black;
 			font-size: px2rem(26);
 			line-height: px2rem(50);
-			color: black;
 		}
 		.author{
 			width: 100%;

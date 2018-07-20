@@ -126,20 +126,20 @@ export default {
 @import '../scss/mixin.scss';
 
 .search{
+	z-index: 8;
 	height: 100%;
 	overflow: hidden;
 	position: relative;
 	background-color: white;
-	z-index: 8;
 	header{
-		position: fixed;
-		left: 0;
 		top: 0;
+		left: 0;
 		width: 100%;
-		height: px2rem(120);
 		@include flex;
-		@include padding(px2rem(20));
+		position: fixed;
+		height: px2rem(120);
 		background-color: $bg;
+		@include padding(px2rem(20));
 	}
 	.back{
 		width: px2rem(50);
@@ -148,13 +148,13 @@ export default {
 		@include bg("../images/back.svg");
 	}
 	.input{
+		height: 100%;
 		@include prix(flex, 1);
 		border-bottom: px2rem(.5) solid #ccc;
-		height: 100%;
 		input{
-			height: 100%;
 			width: 100%;
 			color: #eee;
+			height: 100%;
 			font-size: px2rem(30);
 		}
 		input::-webkit-input-placeholder{
@@ -180,19 +180,19 @@ export default {
 	.hot{
 		@include padding(px2rem(30) px2rem(20));
 		.title{
-			font-size: px2rem(24);
 			color: gray;
 			height: px2rem(100);
+			font-size: px2rem(24);
 			line-height: px2rem(100);
 		}
 		.btn{
 			float: left;
 			font-size: px2rem(26);
-			padding: px2rem(12) px2rem(20);
-			border-radius: px2rem(30);
-			border: px2rem(1) solid #ccc;
 			margin-right: px2rem(20);
 			margin-bottom: px2rem(20);
+			border-radius: px2rem(30);
+			border: px2rem(1) solid #ccc;
+			padding: px2rem(12) px2rem(20);
 		}
 		.clear{
 			clear: both;

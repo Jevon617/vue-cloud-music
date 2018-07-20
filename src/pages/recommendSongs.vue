@@ -13,9 +13,9 @@
     		<div class="list">
 
     			<div class="menu">
-    				<div class="play"></div>
-    				<div class="playall">播放全部</div>
-    				<div class="choose">
+    				<div class="play" @click="addSongs"></div>
+    				<div class="playall" @click="addSongs">播放全部</div>
+    				<div class="choose" @click="goCheck">
     					<span class="icon"></span>
     					<span >多选</span>
     				</div>
@@ -60,8 +60,14 @@ export default {
 		},
 		addSongs(index){
 			let songs = clone(this.songs);
-			let i = Number(index)-1;
+			let i = Number(index)-1 || 0;
 			this.$store.commit('addSongs', {song:songs, recommend:true, index : i});
+		},
+		goCheck(){
+			this.$router.push({
+				name : 'check',
+				params: {songs:this.songs}
+			});
 		}
 	},
 	components:{	

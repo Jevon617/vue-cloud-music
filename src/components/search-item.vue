@@ -1,10 +1,13 @@
 <template>
-    <div class="search-item">
+    <div class="search-item" @click="go">
     	<!-- 添加key可以解决url改变,图片不加载的bug -->
     	<img v-lazy="url" :key="url" alt="" >
-    	<div class="right">
+    	<div class="middle">
     		<div class="title">{{ title }}</div>
     		<div class="author">{{ author }}</div>
+    	</div>
+    	<div class="right" v-if="show" @click="more">
+    		<i class="iconfont icon-more"></i>
     	</div>
     </div>
 </template>
@@ -23,6 +26,18 @@ export default {
 		author : {
 			type : String,
 			default : ''
+		},
+		show : {
+			type : Boolean,
+			default : false
+		}
+	},
+	methods:{
+		go(){
+			this.$emit('go')
+		},
+		more(e){
+			this.$emit('more',e);
 		}
 	}
     
@@ -42,7 +57,7 @@ export default {
 		border-radius: px2rem(5);
 		margin-right: px2rem(10);
 	}
-	.right{
+	.middle{
 		height : px2rem(140);
 		@include flex(center, column);
 		border-bottom: px2rem(1) solid #ccc;
@@ -61,6 +76,16 @@ export default {
 			font-size: px2rem(20);
 			color: gray;
 		}
+	}
+	.right{
+		color: #888;
+		width: px2rem(60);
+		height: px2rem(140);
+		line-height: px2rem(140);
+		border-bottom: px2rem(1) solid #ccc;
+	}
+	i{
+		font-size: px2rem(36);
 	}
 }
 

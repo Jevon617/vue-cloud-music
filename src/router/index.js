@@ -14,6 +14,8 @@ import sheet   from '../pages/songsheet.vue'
 import comment from '../pages/comment.vue'
 import quality from '../pages/highquality.vue'
 import rank    from '../pages/rank.vue'
+import check   from '../pages/checkbox.vue'
+import history from '../pages/history.vue'
 
 
 
@@ -96,6 +98,16 @@ export default new Router({
       path : '/rank',
       name : 'rank',
       component: rank
+    },
+    {
+      path : '/check',
+      name : 'check',
+      component: check
+    },
+    {
+      path : '/history',
+      name : 'history',
+      component: history
     }
   ]
 })

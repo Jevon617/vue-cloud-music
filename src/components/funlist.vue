@@ -72,7 +72,7 @@ export default {
 		async addNext(){
 			let song = clone(this.song);
 			song.play =  false;
-			if(!song.album.picUrl){
+			if(song.album && !song.album.picUrl){
 				let res = await getAlbum(song.album.id);
 				song.album.picUrl = res.data.code == 200 && res.data.album.picUrl || '';
 				this.$store.commit('addSongs', { song:song, next:true });

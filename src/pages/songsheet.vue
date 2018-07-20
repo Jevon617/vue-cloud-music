@@ -28,7 +28,9 @@
 		    	</div>
     		</div>
 
-    		<button-group :playlist="playlist" @goComment="goComment"></button-group>
+    		<button-group :playlist="playlist" @goComment="goComment" @goCheck="goCheck">
+    			
+    		</button-group>
     	</div>
     	
     	<song-list :songs="songs"></song-list>
@@ -83,6 +85,12 @@ export default {
 					type     : 'playlist'
 				}
 			})
+		},
+		goCheck(){
+			this.$router.push({
+				name : 'check',
+				params: {songs:this.songs}
+			});
 		},
 		showName(){
 			let sheet = this.$refs.sheet;

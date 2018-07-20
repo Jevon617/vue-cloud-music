@@ -73,3 +73,6 @@ export const updateSheet = (id, name, desc, tags)=>$http(`/playlist/update/?id=$
 
 // 获取排行榜
 export const getRankList = (idx)=>$http('/top/list?idx=' + idx);
+
+// 获取历史记录
+export const getHistroy = (uid)=>$http(`/user/record?uid=${uid}&type=1`);

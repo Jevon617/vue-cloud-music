@@ -10,10 +10,6 @@
 				<div slot="right" class="word">最近播放 <span>(0)</span></div>
 			</item>
 			<item>
-				<div slot="left" class="img download"></div>
-				<div slot="right" class="word">下载管理 <span>(0)</span></div>
-			</item>
-			<item>
 				<div slot="left" class="img radio"></div>
 				<div slot="right" class="word">我的电台 <span>(0)</span></div>
 			</item>
@@ -28,16 +24,15 @@
 				<span class="word">创建的歌单({{playlist.length}})</span>
 				<i class="iconfont icon-setup" @click="bulidSheet"></i>
 			</div>
+
 			<div class="content" v-show="show">
-				<item :border="true" :height="120" v-for="item, index in playlist" :key="index">
-					<img slot="left" class="img1 love" :src="item.coverImgUrl"/>
-					
-					<div slot="right" class="word word1">
-						{{ index == 0 && '我喜欢的音乐' || item.name }} 
-						<span>({{ item.trackCount }})</span>
-					</div>
-				</item>
+				<search-item @go="goSheet(item)" v-for="item, index in playlist"
+					  		 @more="more"  :key="index" :show="true"
+					  		 :url="item.coverImgUrl" :author="item.trackCount+'首'"
+					  		 :title="index == 0 && '我喜欢的音乐' || item.name" >
+				</search-item>
 			</div>
+
 		</div>
     	
     </div>
@@ -45,7 +40,9 @@
 
 <script>
 
+import searchItem from '../components/search-item.vue';
 import item from '../components/common/item.vue';
+
 import { getPersonalSheet, bulidSheet, updateSheet} from '../service/getData.js';
 
 export default {
@@ -66,7 +63,6 @@ export default {
 				let res = await getPersonalSheet(uid);
 				this.playlist = res.data.code == 200 && res.data.playlist || [];
 				console.log(this.playlist);
-
 			}catch(e){
 				this.$toast('你的网络好像出现了问题哦');
 			}
@@ -74,22 +70,25 @@ export default {
 		async bulidSheet(e){
 			e.stopPropagation();
 			try{
-				let res = await bulidSheet('回忆里的青春');
-				if(res.data.code == 200){
-					let playlist = res.data.playlist;
-					let result = await updateSheet(
-						res.data.id,playlist.name,playlist.description, playlist.tags);
-					console.log(result);
-					result.data.code == 200 && this.getPersonalSheet();
-				} 
+				let res = await bulidSheet('我从未来过');
+				let playlist = res.data.code == 200 && res.data.playlist;
+				this.playlist.push(playlist);
 			}catch(e){
 				this.$toast('你的网络好像出现了问题哦');
 			}
+		},
+		goSheet(item){
+			this.$router.push('/sheet?id='+item.id)
+		},
+		more(e){
+			e.stopPropagation();
+			console.log("show");
 		}
 
 	},
 	components:{
-		item
+		item,
+		searchItem
 	}
     
 }

@@ -38,7 +38,6 @@ export default {
 			map          : {},
 			state        : 'paused',
 			radius       : 60,
-			isChange     : false,
 			currentLyric : '横滑可以切换下一首哦'
 		}
 	},
@@ -63,8 +62,7 @@ export default {
 	},
 	computed:{
 		...mapGetters([
-			'$play',
-			'$currentLength'
+			'$play'
 		]),
 		$precent(){
 			let duration = this.$play.duration/1000;
@@ -104,11 +102,11 @@ export default {
 			let song = clone(this.$store.state.songs[currentIndex]);
 
 			if(this.$store.state.type == '列表循环'){
-				console.log('列表循环');
 				if(num>0){
 					if(length-1 == currentIndex){
 						// 一首歌无限循环
-						length == 1 && this.$store.state.songs.splice(currentIndex, 1, song);
+						if(length == 1) this.$store.state.songs.splice(currentIndex,1,song);
+						if(length == 1) this.$refs.audio.currentTime = 0;
 						this.$store.state.currentIndex = 0;
 					}else{
 						this.$store.state.currentIndex ++;
@@ -117,20 +115,19 @@ export default {
 					this.$store.state.currentIndex --;
 				}
 			}else if(this.$store.state.type == '随机播放'){
-				console.log('随机播放');
 				let random = Math.floor(Math.random()*length);
 				if(random == currentIndex){
 					random = random+1;
 					if(random >= length-1){
-						length == 1 && this.$store.state.songs.splice(currentIndex, 1, song);
+						if(length == 1) this.$store.state.songs.splice(currentIndex,1,song);
+						if(length == 1) this.$refs.audio.currentTime = 0;
 						random = 0;
 					} 
 				}
 				this.$store.state.currentIndex = random;
 			}else{
-				console.log('单曲循环');
-				
 				this.$store.state.songs.splice(currentIndex, 1, song);
+				this.$refs.audio.currentTime = 0;
 			}
 		},
 		async getLyric(){
@@ -161,21 +158,11 @@ export default {
 			console.log('下一曲');
 
 			this.$nextTick(()=>{
-				if(this.isChange){
-					this.play();
-				}else{
-					this.$refs.audio.currentTime = 0;
-					this.play();
-				}
-				this.getLyric();
-				this.isChange = false;
+				this.play();
+
 			});
 			localStorage.setItem('songs', JSON.stringify(this.$store.state.songs));
-		},
-		$currentLength : function(){
-			this.isChange = true;
-		},
-
+		}
 	},
 	components:{
 		cprogress

@@ -238,7 +238,8 @@ export default {
     computed:{
 
         ...mapGetters([
-            '$play'
+            '$play',
+            '$currentLength'
         ]),
 
         /*根据当前时间结合map返回key*/
@@ -276,6 +277,10 @@ export default {
             let el = this.$refs[this.$time];
             if(!el) return;
             this.scroll && this.scroll.scrollToElement(el[0],500,0,-400);
+        },
+
+        $currentLength(){
+            this.$store.state.songs.length == 0 && this.$router.go(-1);
         }
     },
     components:{
@@ -315,6 +320,7 @@ export default {
         background-image: linear-gradient(147deg, #77776b 0%, #ccc 49%, #6d1a1a 100%);
         z-index: 14;
         position: relative;
+        border-bottom:  linear-gradient(147deg, #cccccc 0%, #ccc 49%, #6d1a1a 100%);
         .back{
             width: px2rem(120);
             height: px2rem(120);

@@ -1,5 +1,5 @@
 <template>
-    <div class="item" :style="{ height: height/45 + 'rem' }">
+    <div class="item"  @click="go">
     	<div class="left">
     		<slot name="left" />
     	</div>
@@ -16,13 +16,15 @@ export default {
 		return{}
 	},
 	props:{
-		height : {
-			type : Number,
-			default: 100
-		},
+		
 		border : {
 			type : Boolean,
 			default : true 
+		}
+	},
+	methods:{
+		go(){
+			this.$emit('go');
 		}
 	}
     
@@ -35,7 +37,7 @@ export default {
 
 .item{
 	width: 100%;
-	height: px2rem(100);
+	height: px2rem(120);
 	@include flex(space-between);
 	.right{
 		height: 100%;
